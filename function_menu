@@ -1,0 +1,22 @@
+#!/bin/bash
+export LC_COLLATE=C
+shopt -s extglob
+
+createmenu ()
+{
+  select option; do # in "$@" is the default
+    if [ 1 -le "$REPLY" ] && [ "$REPLY" -le $(($#)) ];
+    then
+      selected_colname=$option
+      selected_colnum=$REPLY
+      break;
+    else
+      echo "Incorrect Input: Select a number 1-$#"
+    fi
+  done
+}
+
+createmenu $@
+
+export colname="$selected_colname"
+export colnum="$selected_colnum"
